@@ -21,7 +21,10 @@ describe('useImages', () => {
 
     expect(useSWRSpy).toHaveBeenCalledWith(
       `${import.meta.env.VITE_IMAGES_API_BASE_URL}/v2/list?page=2&limit=25`,
-      fetcher
+      fetcher,
+      {
+        dedupingInterval: 300000,
+      }
     );
 
     useSWRSpy.mockRestore();
