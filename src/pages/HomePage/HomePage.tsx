@@ -44,9 +44,11 @@ export function HomePage() {
         currentLimit={limit}
         onPageSizeChange={handlePageSizeChange}
       />
+
       <div className={styles.imageGalleryContainer}>
         <ImageGallery images={data?.data || []} />
       </div>
+
       <PaginationControls
         currentPage={page}
         onNextPageClick={handleNextPage}
