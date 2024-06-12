@@ -1,17 +1,31 @@
 import styles from './HomePage.module.css';
 import { ImageGallery, Loading, PaginationControls } from '../../components';
 import { useImages } from '../../hooks/useImages';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-// TODO: fix type and jsdoc
 export function HomePage() {
-  const [page, setPage] = useState<number>(1);
-  const [limit, setLimit] = useState<number>(20);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = parseInt(searchParams.get('page') || '1');
+  const limit = parseInt(searchParams.get('limit') || '25');
 
   const { data, isLoading } = useImages(page, limit);
 
-  const handleNextPage = () => setPage((prev) => prev + 1);
-  const handlePreviousPage = () => setPage((prev) => Math.max(prev - 1, 1));
+  const handleNextPage = () => {
+    setSearchParams({ page: (page + 1).toString(), limit: limit.toString() });
+  };
+
+  const handlePreviousPage = () => {
+    setSearchParams({
+      page: Math.max(page - 1, 1).toString(),
+      limit: limit.toString(),
+    });
+  };
+
+  const handlePageSizeChange = (newLimit: number) => {
+    setSearchParams({ page: '1', limit: newLimit.toString() });
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,7 +42,7 @@ export function HomePage() {
         onNextPageClick={handleNextPage}
         onPreviousPageClick={handlePreviousPage}
         currentLimit={limit}
-        onPageSizeChange={(x: number) => setLimit(x)}
+        onPageSizeChange={handlePageSizeChange}
       />
       <div className={styles.imageGalleryContainer}>
         <ImageGallery images={data?.data || []} />
@@ -38,7 +52,7 @@ export function HomePage() {
         onNextPageClick={handleNextPage}
         onPreviousPageClick={handlePreviousPage}
         currentLimit={limit}
-        onPageSizeChange={(x: number) => setLimit(x)}
+        onPageSizeChange={handlePageSizeChange}
       />
     </>
   );
