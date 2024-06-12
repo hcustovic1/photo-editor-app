@@ -1,7 +1,7 @@
 import styles from './HomePage.module.css';
 import { ImageGallery, Loading, PaginationControls } from '../../components';
 import { useImages } from '../../hooks/useImages';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // TODO: fix type and jsdoc
 export function HomePage() {
@@ -12,6 +12,10 @@ export function HomePage() {
 
   const handleNextPage = () => setPage((prev) => prev + 1);
   const handlePreviousPage = () => setPage((prev) => Math.max(prev - 1, 1));
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
 
   if (isLoading) {
     return <Loading />;
