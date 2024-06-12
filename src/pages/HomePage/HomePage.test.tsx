@@ -61,6 +61,24 @@ describe('HomePage component', () => {
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
+  test('handles error state', async () => {
+    (fetcher as Mock).mockRejectedValue(new Error('Failed to fetch'));
+
+    render(
+      <Router>
+        <SWRConfig value={{ dedupingInterval: 0, provider: () => new Map() }}>
+          <HomePage />
+        </SWRConfig>
+      </Router>
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Failed to load images. Please try again later.')
+      ).toBeInTheDocument();
+    });
+  });
+
   test('handles next page click and updates search params', async () => {
     render(
       <Router>

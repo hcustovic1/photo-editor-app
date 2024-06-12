@@ -27,6 +27,11 @@
 
   --color-highlight: #ffecb3; /* pastel yellow for highlights */
   --color-highlight-text: #2e3d49; /* dark slate gray for text on highlights */
+    
+  /* Accessible Error Colors */
+  --color-error-bg: #f8d7da;
+  --color-error-text: #721c24;
+  --color-error-border: #f5c6cb;
 
   /* Apply the colors */
   font-family: var(--font-family);

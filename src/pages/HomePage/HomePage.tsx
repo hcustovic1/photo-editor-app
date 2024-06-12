@@ -1,5 +1,10 @@
 import styles from './HomePage.module.css';
-import { ImageGallery, Loading, PaginationControls } from '../../components';
+import {
+  ImageGallery,
+  Loading,
+  PaginationControls,
+  ErrorBanner,
+} from '../../components';
 import { useImages } from '../../hooks/useImages';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -10,7 +15,7 @@ export function HomePage() {
   const page = parseInt(searchParams.get('page') || '1');
   const limit = parseInt(searchParams.get('limit') || '25');
 
-  const { data, isLoading } = useImages(page, limit);
+  const { data, isLoading, error } = useImages(page, limit);
 
   const handleNextPage = () => {
     setSearchParams({ page: (page + 1).toString(), limit: limit.toString() });
@@ -33,6 +38,12 @@ export function HomePage() {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return (
+      <ErrorBanner message="Failed to load images. Please try again later." />
+    );
   }
 
   return (

@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ErrorBanner Component > matches the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    aria-live="assertive"
+    class="_errorContainer_a5014f"
+    role="alert"
+  >
+    <div
+      aria-hidden="true"
+      class="_errorIcon_a5014f"
+    >
+      ⚠️
+    </div>
+    <p
+      class="_errorMessage_a5014f"
+    >
+      Error! Please check your internet connection
+    </p>
+  </div>
+</DocumentFragment>
+`;
