@@ -3,9 +3,12 @@
 exports[`Loading component > matches the snapshot 1`] = `
 <DocumentFragment>
   <div
+    aria-busy="true"
     class="_loaderContainer_55dd7a"
+    role="alert"
   >
     <div
+      aria-hidden="true"
       class="_spinner_55dd7a"
     />
     <p>
