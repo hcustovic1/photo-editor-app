@@ -3,6 +3,7 @@ import { ImageGallery, Loading, PaginationControls } from '../../components';
 import { useImages } from '../../hooks/useImages';
 import { useState } from 'react';
 
+// TODO: fix type and jsdoc
 export function HomePage() {
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(20);
