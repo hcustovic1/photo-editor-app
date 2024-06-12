@@ -1,6 +1,6 @@
 import * as SWR from 'swr';
 import { renderHook, waitFor } from '@testing-library/react';
-import { Mock, describe, expect, it, vi } from 'vitest';
+import { Mock, describe, expect, test, vi } from 'vitest';
 import { fetcher } from '../utils/fetcher';
 import { useImages } from '../hooks/useImages';
 import { mockImagesListData } from '../__mocks__';
@@ -12,7 +12,7 @@ vi.mock('swr', async () => ({
 }));
 
 describe('useImages', () => {
-  it('should call useSWR with correct arguments', async () => {
+  test('should call useSWR with correct arguments', async () => {
     const useSWRSpy = vi.spyOn(SWR, 'default');
 
     (fetcher as Mock).mockResolvedValueOnce(mockImagesListData);
@@ -27,7 +27,7 @@ describe('useImages', () => {
     useSWRSpy.mockRestore();
   });
 
-  it('should fetch and return data correctly', async () => {
+  test('should fetch and return data correctly', async () => {
     (fetcher as Mock).mockResolvedValueOnce(mockImagesListData);
 
     const { result } = renderHook(() => useImages(4, 40));
