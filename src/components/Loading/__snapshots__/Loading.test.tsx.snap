@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Loading component > matches the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="_loaderContainer_55dd7a"
+  >
+    <div
+      class="_spinner_55dd7a"
+    />
+    <p>
+      Loading...
+    </p>
+  </div>
+</DocumentFragment>
+`;

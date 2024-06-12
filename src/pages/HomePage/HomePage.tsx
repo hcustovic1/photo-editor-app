@@ -1,5 +1,5 @@
 import styles from './HomePage.module.css';
-import { ImageGallery, PaginationControls } from '../../components';
+import { ImageGallery, Loading, PaginationControls } from '../../components';
 import { useImages } from '../../hooks/useImages';
 import { useState } from 'react';
 
@@ -13,7 +13,7 @@ export function HomePage() {
   const handlePreviousPage = () => setPage((prev) => Math.max(prev - 1, 1));
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
