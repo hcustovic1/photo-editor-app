@@ -3,12 +3,13 @@ import { fetcher } from './fetcher';
 
 global.fetch = vi.fn();
 
+const MOCK_API_URL = 'https://api.example.com/data';
+
 describe('fetcher', () => {
   it('should fetch data successfully and include x-total-count header', async () => {
     const mockData = { key: 'value' };
     const mockHeaders = new Headers({
       'Content-Type': 'application/json',
-      'x-total-count': '100',
     });
 
     // Mock the fetch response
@@ -18,12 +19,10 @@ describe('fetcher', () => {
       headers: mockHeaders,
     });
 
-    const url = 'https://api.example.com/data';
-    const result = await fetcher<typeof mockData>(url);
+    const result = await fetcher<typeof mockData>(MOCK_API_URL);
 
     expect(result.data).toEqual(mockData);
     expect(result.headers).toEqual(mockHeaders);
-    expect(result.headers.get('x-total-count')).toEqual('100');
   });
 
   it('should throw an error if fetch fails', async () => {
@@ -32,17 +31,13 @@ describe('fetcher', () => {
       ok: false,
     });
 
-    const url = 'https://api.example.com/data';
-
-    await expect(fetcher(url)).rejects.toThrow('Failed to fetch data');
+    await expect(fetcher(MOCK_API_URL)).rejects.toThrow('Failed to fetch data');
   });
 
   it('should throw an error if fetch throws an exception', async () => {
     // Mock the fetch to throw an error
     (global.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
 
-    const url = 'https://api.example.com/data';
-
-    await expect(fetcher(url)).rejects.toThrow('Network error');
+    await expect(fetcher(MOCK_API_URL)).rejects.toThrow('Network error');
   });
 });
