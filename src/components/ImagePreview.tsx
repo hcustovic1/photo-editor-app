@@ -6,7 +6,7 @@ interface ImagePreviewProps {
   authorName: string;
 }
 
-const ImagePreview: React.FC<ImagePreviewProps> = ({
+export const ImagePreview: React.FC<ImagePreviewProps> = ({
   imageUrl,
   authorName,
 }) => {
@@ -17,5 +17,3 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
     </figure>
   );
 };
-
-export default ImagePreview;
