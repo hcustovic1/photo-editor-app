@@ -1,9 +1,10 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
 export const Navbar: React.FC = () => {
   return (
-    <header>
+    <header className={styles.header}>
       <nav className={styles.navbar} aria-label="Main navigation">
         <ul className={styles.navList}>
           <li className={styles.navItem}>

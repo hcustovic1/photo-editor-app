@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { describe, expect, test } from 'vitest';
 import { Navbar } from './Navbar';
+import { describe, expect, test } from 'vitest';
 
 describe('Navbar', () => {
   test('renders Home link', () => {

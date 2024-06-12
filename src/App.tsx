@@ -1,11 +1,16 @@
 import './App.css';
-import { BaseRouter } from './routes/BaseRouter';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Navbar } from './components';
+import { BaseRoutes } from './routes/BaseRoutes';
 
 function App() {
   return (
-    <>
-      <BaseRouter />
-    </>
+    <Router>
+      <Navbar />
+      <main>
+        <BaseRoutes />
+      </main>
+    </Router>
   );
 }
 
