@@ -35,7 +35,8 @@ The following are not included in this project:
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
+3. Create a `.env.local file` in root directory and add `VITE_IMAGES_API_BASE_URL` key-value pair to it
+4. Start the development server: `npm run dev`
 
 ## Testing
 
@@ -51,3 +52,4 @@ The following are not included in this project:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
