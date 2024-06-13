@@ -8,7 +8,7 @@ import { mockImagesListData } from '../../__mocks__';
 
 vi.mock('../../utils/fetcher');
 
-describe('HomePage component', () => {
+describe('HomePage Component', () => {
   beforeEach(() => {
     (fetcher as Mock).mockResolvedValue({
       data: mockImagesListData,
@@ -93,6 +93,7 @@ describe('HomePage component', () => {
 
     await waitFor(() => {
       const searchParams = new URLSearchParams(window.location.search);
+
       expect(searchParams.get('page')).toBe('2');
       expect(searchParams.get('limit')).toBe('25');
     });
@@ -114,6 +115,7 @@ describe('HomePage component', () => {
 
     await waitFor(() => {
       const searchParams = new URLSearchParams(window.location.search);
+
       expect(searchParams.get('page')).toBe('1');
       expect(searchParams.get('limit')).toBe('25');
     });
@@ -133,6 +135,7 @@ describe('HomePage component', () => {
 
     await waitFor(() => {
       const searchParams = new URLSearchParams(window.location.search);
+
       expect(searchParams.get('page')).toBe('1');
       expect(searchParams.get('limit')).toBe('50');
     });
