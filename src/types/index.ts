@@ -13,4 +13,11 @@ export interface PaginatedImages {
   totalPages: number;
 }
 
+export interface ImageEditorState {
+  width: number;
+  height: number;
+  greyscale: boolean;
+  blur: number;
+}
+
 export type Fetch = typeof fetch;
