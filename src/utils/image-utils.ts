@@ -16,9 +16,11 @@ export const constructImageUrl = (
   imageId: string,
   { width, height, greyscale, blur }: ImageEditorState
 ): string => {
-  return `https://picsum.photos/id/${imageId}/${width}/${height}${
-    greyscale ? '?grayscale' : ''
-  }${blur ? `${greyscale ? '&' : '?'}blur=${blur}` : ''}`;
+  return `${
+    import.meta.env.VITE_IMAGES_API_BASE_URL
+  }/id/${imageId}/${width}/${height}${greyscale ? '?grayscale' : ''}${
+    blur ? `${greyscale ? '&' : '?'}blur=${blur}` : ''
+  }`;
 };
 
 /**
