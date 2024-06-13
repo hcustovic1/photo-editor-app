@@ -34,13 +34,13 @@ The following are not included in this project:
 ## Setup
 
 1. Clone the repository
-2. Install dependencies: `npm install`
+2. Install dependencies: `pnpm i`
 3. Create a `.env.local file` in root directory and add `VITE_IMAGES_API_BASE_URL` key-value pair to it
-4. Start the development server: `npm run dev`
+4. Start the development server: `pnpm dev`
 
 ## Testing
 
-1. Unit and integration tests: `npm run test`
+1. Unit and integration tests: `pnpm test`
 
 ## Future Enhancements
 
