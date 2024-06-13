@@ -4,6 +4,7 @@ import {
   getImageEditorStateFromParams,
   updateSearchParams,
   ImageEditorState,
+  downloadImage,
 } from './image-utils';
 
 describe('image-utils', () => {
@@ -145,6 +146,67 @@ describe('image-utils', () => {
         '',
         '/edit/123?width=800&height=600&greyscale=true'
       );
+    });
+  });
+
+  describe('downloadImage', () => {
+    test('should download an image successfully', async () => {
+      // Mock the fetch response
+      const mockBlob = new Blob(['mock data'], { type: 'image/jpeg' });
+      const mockFetchResponse = {
+        ok: true,
+        blob: vi.fn().mockResolvedValue(mockBlob),
+      };
+      globalThis.fetch = vi.fn().mockResolvedValue(mockFetchResponse);
+
+      // Mock URL.createObjectURL
+      const mockObjectUrl = 'blob:mock-url';
+      globalThis.URL.createObjectURL = vi.fn().mockReturnValue(mockObjectUrl);
+      globalThis.URL.revokeObjectURL = vi.fn();
+
+      // Mock document.createElement and related methods
+      const mockLink = {
+        href: '',
+        download: '',
+        click: vi.fn(),
+      };
+      document.createElement = vi.fn().mockReturnValue(mockLink);
+      document.body.appendChild = vi.fn();
+      document.body.removeChild = vi.fn();
+
+      const url = 'https://example.com/mock-image.jpg';
+      const filename = 'mock-image.jpg';
+      await downloadImage(url, filename);
+
+      expect(fetch).toHaveBeenCalledWith(url);
+      expect(mockFetchResponse.blob).toHaveBeenCalled();
+      expect(mockLink.download).toBe(filename);
+      expect(mockLink.click).toHaveBeenCalled();
+    });
+
+    test('should handle fetch errors gracefully', async () => {
+      // Mock the fetch response to throw an error
+      globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+
+      // Spy on console.error
+      const consoleErrorSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+
+      // Call the function
+      const url = 'https://example.com/mock-image.jpg';
+      const filename = 'mock-image.jpg';
+      await downloadImage(url, filename);
+
+      // Assertions
+      expect(fetch).toHaveBeenCalledWith(url);
+      expect(console.error).toHaveBeenCalledWith(
+        'Error downloading image',
+        expect.any(Error)
+      );
+
+      // Restore the console.error spy
+      consoleErrorSpy.mockRestore();
     });
   });
 });
