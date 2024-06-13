@@ -5,6 +5,13 @@ export interface ImageEditorState {
   blur: number;
 }
 
+/**
+ * Constructs an image URL based on the provided image ID and image editor state.
+ *
+ * @param {string} imageId - The ID of the image.
+ * @param {ImageEditorState} state - The state of the image editor.
+ * @returns {string} The constructed image URL.
+ */
 export const constructImageUrl = (
   imageId: string,
   { width, height, greyscale, blur }: ImageEditorState
@@ -14,6 +21,12 @@ export const constructImageUrl = (
   }${blur ? `${greyscale ? '&' : '?'}blur=${blur}` : ''}`;
 };
 
+/**
+ * Retrieves the image editor state from the provided URL search parameters.
+ *
+ * @param {URLSearchParams} searchParams - The URL search parameters containing the image editor state.
+ * @returns {ImageEditorState} The image editor state object with the width, height, greyscale, and blur values.
+ */
 export const getImageEditorStateFromParams = (
   searchParams: URLSearchParams
 ): ImageEditorState => {
@@ -24,6 +37,12 @@ export const getImageEditorStateFromParams = (
   return { width, height, greyscale, blur };
 };
 
+/**
+ * Updates the search parameters in the URL based on the provided image editor state.
+ *
+ * @param {Partial<ImageEditorState>} params - The partial image editor state object containing the updated values.
+ * @return {void} This function does not return anything.
+ */
 export const updateSearchParams = (params: Partial<ImageEditorState>) => {
   const searchParams = new URLSearchParams(window.location.search);
   if (params.width !== undefined)
@@ -39,6 +58,13 @@ export const updateSearchParams = (params: Partial<ImageEditorState>) => {
   window.history.replaceState(null, '', newUrl);
 };
 
+/**
+ * Downloads an image from the given URL and saves it with the specified filename.
+ *
+ * @param {string} url - The URL of the image to download.
+ * @param {string} filename - The name to save the downloaded image as.
+ * @return {Promise<void>} A Promise that resolves when the image is successfully downloaded and saved, or rejects with an error if there was a problem.
+ */
 export const downloadImage = async (url: string, filename: string) => {
   try {
     const response = await fetch(url);
