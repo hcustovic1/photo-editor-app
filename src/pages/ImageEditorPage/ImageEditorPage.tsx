@@ -5,6 +5,7 @@ import {
   constructImageUrl,
   getImageEditorStateFromParams,
   updateSearchParams,
+  downloadImage,
 } from '../../utils/image-utils';
 import styles from './ImageEditorPage.module.css';
 
@@ -31,13 +32,11 @@ export const ImageEditorPage: React.FC = () => {
     updateSearchParams({ width, height, greyscale, blur });
   }, [imageId, width, height, greyscale, blur]);
 
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = `image_${width}x${height}${greyscale ? '_greyscale' : ''}${
+  const handleDownload = async () => {
+    const filename = `image_${width}x${height}${greyscale ? '_greyscale' : ''}${
       blur ? `_blur${blur}` : ''
     }.jpg`;
-    link.click();
+    await downloadImage(imageUrl, filename);
   };
 
   const handleDiscardChanges = () => {

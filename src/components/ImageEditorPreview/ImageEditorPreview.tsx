@@ -15,9 +15,23 @@ export const ImageEditorPreview: React.FC<ImageEditorPreviewProps> = ({
   return (
     <div className={styles.imagePreview}>
       <h2>Image Preview</h2>
-      <img src={imageUrl} alt="Edited preview" />
-      <button onClick={onDownload}>Download Image</button>
-      <button onClick={onDiscardChanges}>Discard Changes</button>
+
+      <figure>
+        <img src={imageUrl} alt="Edited preview" />
+        <figcaption className={styles.srOnly}>
+          Preview of the edited image
+        </figcaption>
+      </figure>
+
+      <button onClick={onDownload} aria-label="Download edited image">
+        Download Image
+      </button>
+      <button
+        onClick={onDiscardChanges}
+        aria-label="Discard changes to the image"
+      >
+        Discard Changes
+      </button>
     </div>
   );
 };
