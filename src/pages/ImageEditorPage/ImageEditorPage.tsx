@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { ImageEditorTools, ImageEditorPreview } from '../../components';
+import {
+  constructImageUrl,
+  getImageEditorStateFromParams,
+  updateSearchParams,
+} from '../../utils/image-utils';
 import styles from './ImageEditorPage.module.css';
 
 export const ImageEditorPage: React.FC = () => {
-  const { imageId } = useParams<{ imageId: string }>();
-  const [width, setWidth] = useState<number>(600);
-  const [height, setHeight] = useState<number>(400);
-  const [greyscale, setGreyscale] = useState<boolean>(false);
-  const [blur, setBlur] = useState<number>(0);
+  const { imageId = '' } = useParams<{ imageId: string }>();
+  const [searchParams] = useSearchParams();
+
+  const initialState = getImageEditorStateFromParams(searchParams);
+
+  const [width, setWidth] = useState<number>(initialState.width);
+  const [height, setHeight] = useState<number>(initialState.height);
+  const [greyscale, setGreyscale] = useState<boolean>(initialState.greyscale);
+  const [blur, setBlur] = useState<number>(initialState.blur);
   const [imageUrl, setImageUrl] = useState<string>('');
 
   useEffect(() => {
-    const savedState = localStorage.getItem(`imageEditorState_${imageId}`);
-    if (savedState) {
-      const { width, height, greyscale, blur } = JSON.parse(savedState);
-      setWidth(width);
-      setHeight(height);
-      setGreyscale(greyscale);
-      setBlur(blur);
-    }
-  }, [imageId]);
-
-  useEffect(() => {
-    const url = `https://picsum.photos/id/${imageId}/${width}/${height}${
-      greyscale ? '?grayscale' : ''
-    }${blur ? `${greyscale ? '&' : '?'}blur=${blur}` : ''}`;
-    setImageUrl(url);
-    localStorage.setItem(
-      `imageEditorState_${imageId}`,
-      JSON.stringify({ width, height, greyscale, blur })
-    );
+    const newImageUrl = constructImageUrl(imageId, {
+      width,
+      height,
+      greyscale,
+      blur,
+    });
+    setImageUrl(newImageUrl);
+    updateSearchParams({ width, height, greyscale, blur });
   }, [imageId, width, height, greyscale, blur]);
 
   const handleDownload = () => {
@@ -43,11 +41,11 @@ export const ImageEditorPage: React.FC = () => {
   };
 
   const handleDiscardChanges = () => {
-    localStorage.removeItem(`imageEditorState_${imageId}`);
     setWidth(600);
     setHeight(400);
     setGreyscale(false);
     setBlur(0);
+    updateSearchParams({ width: 600, height: 400, greyscale: false, blur: 0 });
   };
 
   return (
@@ -62,7 +60,6 @@ export const ImageEditorPage: React.FC = () => {
         onGreyscaleChange={setGreyscale}
         onBlurChange={setBlur}
       />
-
       <ImageEditorPreview
         imageUrl={imageUrl}
         onDiscardChanges={handleDiscardChanges}

@@ -54,6 +54,7 @@ export const ImageEditorTools: React.FC<ImageEditorToolsProps> = ({
   return (
     <div className={styles.editorTools}>
       <h2>Editing Tools</h2>
+
       <div className={styles.inputGroup}>
         <label htmlFor="width-input">Width:</label>
         <input
@@ -65,6 +66,7 @@ export const ImageEditorTools: React.FC<ImageEditorToolsProps> = ({
           required
         />
       </div>
+
       <div className={styles.inputGroup}>
         <label htmlFor="height-input">Height:</label>
         <input
@@ -76,6 +78,7 @@ export const ImageEditorTools: React.FC<ImageEditorToolsProps> = ({
           required
         />
       </div>
+
       <div className={styles.inputGroup}>
         <label htmlFor="greyscale-input">Greyscale:</label>
         <input
@@ -85,6 +88,7 @@ export const ImageEditorTools: React.FC<ImageEditorToolsProps> = ({
           onChange={(e) => onGreyscaleChange(e.target.checked)}
         />
       </div>
+
       <div className={styles.inputGroup}>
         <label htmlFor="blur-input">Blur:</label>
         <input
