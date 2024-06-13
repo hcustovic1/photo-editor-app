@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDebounce } from '../../hooks/useDebounce';
 import styles from './ImageEditorTools.module.css';
 
 interface ImageEditorToolsProps {
@@ -22,6 +23,34 @@ export const ImageEditorTools: React.FC<ImageEditorToolsProps> = ({
   onGreyscaleChange,
   onBlurChange,
 }) => {
+  const [tempWidth, setTempWidth] = useState(width);
+  const [tempHeight, setTempHeight] = useState(height);
+
+  const debouncedWidth = useDebounce(tempWidth, 500);
+  const debouncedHeight = useDebounce(tempHeight, 500);
+
+  React.useEffect(() => {
+    onWidthChange(debouncedWidth);
+  }, [debouncedWidth, onWidthChange]);
+
+  React.useEffect(() => {
+    onHeightChange(debouncedHeight);
+  }, [debouncedHeight, onHeightChange]);
+
+  const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    if (value > 0) {
+      setTempWidth(value);
+    }
+  };
+
+  const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    if (value > 0) {
+      setTempHeight(value);
+    }
+  };
+
   return (
     <div className={styles.editorTools}>
       <h2>Editing Tools</h2>
@@ -30,8 +59,10 @@ export const ImageEditorTools: React.FC<ImageEditorToolsProps> = ({
         <input
           id="width-input"
           type="number"
-          value={width}
-          onChange={(e) => onWidthChange(parseInt(e.target.value))}
+          value={tempWidth}
+          onChange={handleWidthChange}
+          min="1"
+          required
         />
       </div>
       <div className={styles.inputGroup}>
@@ -39,8 +70,10 @@ export const ImageEditorTools: React.FC<ImageEditorToolsProps> = ({
         <input
           id="height-input"
           type="number"
-          value={height}
-          onChange={(e) => onHeightChange(parseInt(e.target.value))}
+          value={tempHeight}
+          onChange={handleHeightChange}
+          min="1"
+          required
         />
       </div>
       <div className={styles.inputGroup}>
