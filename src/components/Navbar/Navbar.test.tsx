@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { Navbar } from './Navbar';
 import { describe, expect, test } from 'vitest';
 
-describe('Navbar', () => {
+describe('Navbar Component', () => {
   test('renders Home link', () => {
     render(
       <BrowserRouter>
@@ -13,6 +13,7 @@ describe('Navbar', () => {
     );
 
     const homeLink = screen.getByRole('link', { name: /home/i });
+
     expect(homeLink).toBeInTheDocument();
     expect(homeLink).toHaveAttribute('href', '/');
   });
@@ -25,6 +26,7 @@ describe('Navbar', () => {
     );
 
     const nav = screen.getByRole('navigation', { name: /main navigation/i });
+
     expect(nav).toBeInTheDocument();
   });
 });

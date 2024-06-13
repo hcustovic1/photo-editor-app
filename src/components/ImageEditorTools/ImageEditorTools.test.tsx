@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
 import { ImageEditorTools } from './ImageEditorTools';
 
-describe('ImageEditorTools component', () => {
+describe('ImageEditorTools Component', () => {
   const defaultProps = {
     width: 600,
     height: 400,

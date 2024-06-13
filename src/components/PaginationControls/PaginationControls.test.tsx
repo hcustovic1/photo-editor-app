@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
 import { PaginationControls } from './PaginationControls';
 
-describe('PaginationControls component', () => {
+describe('PaginationControls Component', () => {
   test('renders correctly', () => {
     render(
       <PaginationControls
@@ -33,6 +33,7 @@ describe('PaginationControls component', () => {
     );
 
     fireEvent.click(screen.getByLabelText(/previous page/i));
+
     expect(onPreviousPageClick).toHaveBeenCalled();
   });
 
@@ -49,6 +50,7 @@ describe('PaginationControls component', () => {
     );
 
     fireEvent.click(screen.getByLabelText(/next page/i));
+
     expect(onNextPageClick).toHaveBeenCalled();
   });
 
@@ -67,6 +69,7 @@ describe('PaginationControls component', () => {
     fireEvent.change(screen.getByLabelText(/select items per page/i), {
       target: { value: '50' },
     });
+
     expect(onPageSizeChange).toHaveBeenCalledWith(50);
   });
 

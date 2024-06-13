@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ImageGallery } from './ImageGallery';
 import { mockImagesListData } from '../../__mocks__';
 
-describe('ImageGallery component', () => {
+describe('ImageGallery Component', () => {
   test('renders correctly', () => {
     render(
       <Router>

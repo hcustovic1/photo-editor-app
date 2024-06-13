@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { ImagePreview } from './ImagePreview';
 import { describe, expect, test } from 'vitest';
 
-describe('ImagePreview', () => {
+describe('ImagePreview Component', () => {
   const mockImageUrl = 'https://via.placeholder.com/150';
   const mockAuthor = 'John Doe';
 
