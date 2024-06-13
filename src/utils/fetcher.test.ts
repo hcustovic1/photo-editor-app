@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, Mock } from 'vitest';
 import { fetcher } from './fetcher';
 
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn();
 
 const MOCK_API_URL = 'https://api.example.com/data';
 
@@ -13,7 +13,7 @@ describe('fetcher', () => {
     });
 
     // Mock the fetch response
-    (global.fetch as Mock).mockResolvedValue({
+    (globalThis.fetch as Mock).mockResolvedValue({
       ok: true,
       json: async () => mockData,
       headers: mockHeaders,
@@ -27,7 +27,7 @@ describe('fetcher', () => {
 
   test('should throw an error if fetch fails', async () => {
     // Mock the fetch response to be not ok
-    (global.fetch as Mock).mockResolvedValue({
+    (globalThis.fetch as Mock).mockResolvedValue({
       ok: false,
     });
 
@@ -36,7 +36,7 @@ describe('fetcher', () => {
 
   test('should throw an error if fetch throws an exception', async () => {
     // Mock the fetch to throw an error
-    (global.fetch as Mock).mockRejectedValue(new Error('Network error'));
+    (globalThis.fetch as Mock).mockRejectedValue(new Error('Network error'));
 
     await expect(fetcher(MOCK_API_URL)).rejects.toThrow('Network error');
   });
