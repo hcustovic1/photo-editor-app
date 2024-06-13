@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import ImageEditorPreview from './ImageEditorPreview';
 
 describe('ImageEditorPreview Component', () => {
@@ -8,7 +8,7 @@ describe('ImageEditorPreview Component', () => {
   const mockOnDiscardChanges = vi.fn();
   const imageUrl = 'http://example.com/image.jpg';
 
-  it('displays the image with the correct src and alt attributes', () => {
+  test('displays the image with the correct src and alt attributes', () => {
     render(
       <ImageEditorPreview
         imageUrl={imageUrl}
@@ -23,7 +23,7 @@ describe('ImageEditorPreview Component', () => {
     expect(imgElement).toHaveAttribute('src', imageUrl);
   });
 
-  it('calls onDownload when the Download button is clicked', () => {
+  test('calls onDownload when the Download button is clicked', () => {
     render(
       <ImageEditorPreview
         imageUrl={imageUrl}
@@ -40,7 +40,7 @@ describe('ImageEditorPreview Component', () => {
     expect(mockOnDownload).toHaveBeenCalledTimes(1);
   });
 
-  it('calls onDiscardChanges when the Discard Changes button is clicked', () => {
+  test('calls onDiscardChanges when the Discard Changes button is clicked', () => {
     render(
       <ImageEditorPreview
         imageUrl={imageUrl}
@@ -57,7 +57,7 @@ describe('ImageEditorPreview Component', () => {
     expect(mockOnDiscardChanges).toHaveBeenCalledTimes(1);
   });
 
-  it('renders the image preview heading', () => {
+  test('renders the image preview heading', () => {
     render(
       <ImageEditorPreview
         imageUrl={imageUrl}
