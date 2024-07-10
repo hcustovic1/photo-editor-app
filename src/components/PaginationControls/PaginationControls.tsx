@@ -38,6 +38,7 @@ export const PaginationControls: React.FC<PaginationControlsProps> = ({
           value={currentLimit}
           onChange={(e) => onPageSizeChange(Number(e.target.value))}
           aria-label="Select items per page"
+          className="e2e-pagination-select"
         >
           <option value={25}>25</option>
           <option value={50}>50</option>
