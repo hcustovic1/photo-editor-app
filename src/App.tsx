@@ -5,7 +5,7 @@ import { BaseRoutes } from './routes/BaseRoutes';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/photo-editor-app/">
       <Navbar />
       <main>
         <BaseRoutes />
